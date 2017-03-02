@@ -1,0 +1,23 @@
+
+  <h1><%= title %></h1>
+  <p>Welcome to <%= title %></p>
+
+
+  <% if (sucessMessage) { %>
+    <p class="success"><%= sucessMessage %> </p>
+  <%  } %>
+
+  <% if (userInfo) { %>
+    <p> Welcome, <strong><%= userInfo.firstName %></strong> </p>
+  <%  } %>
+  <ul>
+  <% if (userInfo) { %>
+  <li> <a class="secret logout" href="/logout">Log Out</a></li>
+  <li> <a class="secret" href="/secret">Secret</a></li>
+  <li> <a class="secret" href="/kgb-files">KGB files</a></li>
+  <%  } else { %>
+    <li><a class="signup" href="/signup"> Sign up </a></li>
+    <li><a class="login" href="/login"> Log In </a></li>
+
+  <% } %>
+</ul>
