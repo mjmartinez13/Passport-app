@@ -62,16 +62,16 @@ passport.use(new LocalStrategy((username, password, next) => {
 }));
 
 passport.use(new FbStrategy({
-  clientID: "1217938161635498",
-  clientSecret: "e413e34a71a1d4f70ffbf40cd18849b9",
+  clientID: "...",
+  clientSecret: "...",
   callbackURL: "http://localhost:3000/auth/facebook/callback"
 }, (accessToken, refreshToken, profile, done) => {
   done(null, profile);
 }));
 
 passport.use(new GoogleStrategy({
-  clientID: "125542491087-t1o3p8c9dh60l45vvtudck36rfmr85sm.apps.googleusercontent.com",
-  clientSecret: "g9CbQb918uEE4tLVzJ47rF6K",
+  clientID: "...",
+  clientSecret: "...",
   callbackURL: "http://localhost:3000/auth/google/callback"
 }, (accessToken, refreshToken, profile, next) => {
   return next(null, profile);
