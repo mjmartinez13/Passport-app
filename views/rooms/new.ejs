@@ -1,0 +1,33 @@
+<div class="color-background room-background">
+
+  <div class="row">
+
+
+    <div class="container room-container">
+      <h1> Add New Room </h1>
+
+      <% if (message.length > 0) { %>
+        <p class="success"> <%= message %> </p>
+      <% } %>
+
+      <form action="/rooms" method="post" enctype="multipart/form-data">
+        <div>
+          <label for="name-input"> Name </label><br>
+          <input id="name-input" type="text" name="name">
+        </div>
+
+        <div>
+          <label for="desc-input"> Description </label><br>
+          <input id="desc-input" type="text" name="desc">
+        </div>
+        <div>
+          <label for="picture-input"> Picture </label><br>
+          <input id="picture-input" type="file" name="picture">
+        </div>
+
+        <button class="room-btn"> Add Room </button>
+      </form>
+
+    </div>
+  </div>
+</div>

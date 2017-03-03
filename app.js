@@ -9,8 +9,11 @@ const mongoose     = require('mongoose');
 const session      = require('express-session');
 const passport     = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const FbStrategy   = require('passport-facebook').Strategy;
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const bcrypt        = require('bcrypt');
 const flash        = require('connect-flash');
+
 
 const User          = require('./models/user-model.js');
 
@@ -58,11 +61,34 @@ passport.use(new LocalStrategy((username, password, next) => {
   });
 }));
 
-passport.serializeUser((user, cb) => {
-  cb(null, user._id);
-});
+passport.use(new FbStrategy({
+  clientID: "1217938161635498",
+  clientSecret: "e413e34a71a1d4f70ffbf40cd18849b9",
+  callbackURL: "http://localhost:3000/auth/facebook/callback"
+}, (accessToken, refreshToken, profile, done) => {
+  done(null, profile);
+}));
 
+passport.use(new GoogleStrategy({
+  clientID: "125542491087-t1o3p8c9dh60l45vvtudck36rfmr85sm.apps.googleusercontent.com",
+  clientSecret: "g9CbQb918uEE4tLVzJ47rF6K",
+  callbackURL: "http://localhost:3000/auth/google/callback"
+}, (accessToken, refreshToken, profile, next) => {
+  return next(null, profile);
+}));
+
+passport.serializeUser((user, cb) => {
+  if (user.provider) {
+    cb(null, user);
+  } else {
+    cb(null, user._id);
+  }
+});
 passport.deserializeUser((id, cb) => {
+  if (id.provider) {
+    cb(null, id);
+    return;
+  }
   User.findOne({ "_id": id }, (err, user) => {
     if (err) { return cb(err); }
     cb(null, user);
@@ -76,12 +102,14 @@ passport.deserializeUser((id, cb) => {
 
 const index = require('./routes/index');
 app.use('/', index);
-
 const authRoutes = require('./routes/auth-routes.js');
 app.use('/', authRoutes);
 
 const protRoutes = require('./routes/protected-routes.js');
 app.use('/', protRoutes);
+
+const roomsRoutes =  require('./routes/rooms-routes.js');
+app.use('/', roomsRoutes);
 // --------------------------------------------
 
 

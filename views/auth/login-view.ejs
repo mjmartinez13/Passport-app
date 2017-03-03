@@ -1,26 +1,39 @@
-<div class="container">
-  <h1>Log In</h1>
+<div class="color-background">
 
-  <% if (errorMessage.length > 0){ %>
-    <p class="error"> <%= errorMessage %> </p>
-  <% } %>
+  <div class="row">
 
-  <form action="/login" method="POST">
+    <div class="container">
 
-    <div>
-      <label for="username">Username:</label><br>
-      <input type="text" name="username">
+      <h1>Log In</h1>
+
+      <% if (errorMessage.length > 0){ %>
+        <p class="error"> <%= errorMessage %> </p>
+      <% } %>
+
+      <form action="/login" method="POST">
+
+        <div>
+          <label for="username">Username:</label><br>
+          <input type="text" name="username">
+        </div>
+
+        <div>
+          <label for="password">Password:</label><br>
+          <input type="password" name="password">
+        </div>
+
+        <div>
+          <button class="login-btn" type="submit" value="Log In">Login</button>
+        </div>
+
+
+      </form>
+        <p>Log In With</p>
+        <a class="facebook social" href="/auth/facebook">Facebook </a>
+        <a class="google social" href="/auth/google">Google </a>
+
     </div>
 
-    <div>
-      <label for="password">Password:</label><br>
-      <input type="password" name="password">
-    </div>
-
-    <div>
-      <button class="login-btn"type="submit" value="Log In">Login</button>
-    </div>
-
-  </form>
+  </div>
 
 </div>

@@ -59,7 +59,7 @@ authRoutes.get('/login', (req, res, next) => {
 
 authRoutes.post('/login',
   passport.authenticate('local', {
-    successRedirect: '/',
+    successReturnToOrRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
     successFlash: 'You have been logged in, user!',
@@ -73,6 +73,22 @@ authRoutes.get('/logout', (req, res) => {
   req.flash('success', 'You have been logged out');
   res.redirect('/');
 });
+
+authRoutes.get("/auth/facebook", passport.authenticate("facebook"));
+authRoutes.get("/auth/facebook/callback", passport.authenticate("facebook", {
+  successRedirect: "/",
+  failureRedirect: "/login"
+}));
+
+authRoutes.get("/auth/google", passport.authenticate("google", {
+  scope: ["https://www.googleapis.com/auth/plus.login",
+          "https://www.googleapis.com/auth/plus.profile.emails.read"]
+}));
+
+authRoutes.get("/auth/google/callback", passport.authenticate("google", {
+  failureRedirect: "/login",
+  successRedirect: "/"
+}));
 
 
 module.exports = authRoutes;

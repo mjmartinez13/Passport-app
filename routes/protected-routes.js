@@ -1,10 +1,10 @@
 const express = require('express');
-const ensureLogin = require('connect-ensure-login');
+const el = require('connect-ensure-login');
 const protRoutes = express.Router();
 
 
-
-protRoutes.get('/secret', (req, res, next) => {
+//this is a ensurelogin------------|
+protRoutes.get('/secret', el.ensureLoggedIn(), (req, res, next) => {
     res.send('SHHHHHH its a secret');
 });
 
